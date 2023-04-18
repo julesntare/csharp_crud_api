@@ -21,9 +21,9 @@ namespace Model
         public string Password { get; set; }
 
         [Column("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; }
 
         [Column("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; }
     }
 }

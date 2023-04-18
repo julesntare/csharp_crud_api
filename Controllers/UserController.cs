@@ -40,7 +40,7 @@ public class UserController : ControllerBase
     [HttpGet("test")]
     public string GetConnectionString()
     {
-        return _context.Database.GetDbConnection().ConnectionString;
+        return "Hello World";
     }
 
     [HttpPut("{id}")]
@@ -52,22 +52,7 @@ public class UserController : ControllerBase
         }
 
         _context.Entry(user).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!UserExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        await _context.SaveChangesAsync();
 
         return NoContent();
     }
@@ -78,7 +63,7 @@ public class UserController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     }
 
     [HttpDelete("{id}")]
